@@ -1050,27 +1050,6 @@ static u32 __compute_runnable_contrib(u64 n)
 	return contrib + runnable_avg_yN_sum[n];
 }
 
-#ifdef CONFIG_ARCH_SCALE_INVARIANT_CPU_CAPACITY
-#define SCHED_ARCH_SCALE_POWER_SHIFT 10
-#endif
-static inline unsigned long compute_capacity_of(int cpu)
-{
-	return cpu_rq(cpu)->curr_compute_capacity;
-}
-
-static inline unsigned long max_compute_capacity_of(int cpu)
-{
-	return cpu_rq(cpu)->max_compute_capacity;
-}
-
-static inline void update_cpu_capacity(int cpu)
-{
-	int tmp_capacity = arch_get_cpu_capacity(cpu);
-	int tmp_max_capacity = arch_get_max_cpu_capacity(cpu);
-	trace_sched_upd_cap(cpu, tmp_capacity, tmp_max_capacity);
-	cpu_rq(cpu)->max_compute_capacity = tmp_max_capacity;
-	cpu_rq(cpu)->curr_compute_capacity = tmp_capacity;
-}
 /*
  * We can represent the historical contribution to runnable average as the
  * coefficients of a geometric series.  To do this we sub-divide our runnable
@@ -4232,6 +4211,28 @@ unsigned long __weak arch_get_cpu_capacity(int cpu)
 unsigned long __weak arch_get_max_cpu_capacity(int cpu)
 {
 	return SCHED_POWER_SCALE;
+}
+
+#ifdef CONFIG_ARCH_SCALE_INVARIANT_CPU_CAPACITY
+#define SCHED_ARCH_SCALE_POWER_SHIFT 10
+#endif
+static inline unsigned long compute_capacity_of(int cpu)
+{
+	return cpu_rq(cpu)->curr_compute_capacity;
+}
+
+static inline unsigned long max_compute_capacity_of(int cpu)
+{
+	return cpu_rq(cpu)->max_compute_capacity;
+}
+
+static inline void update_cpu_capacity(int cpu)
+{
+	int tmp_capacity = arch_get_cpu_capacity(cpu);
+	int tmp_max_capacity = arch_get_max_cpu_capacity(cpu);
+	trace_sched_upd_cap(cpu, tmp_capacity, tmp_max_capacity);
+	cpu_rq(cpu)->max_compute_capacity = tmp_max_capacity;
+	cpu_rq(cpu)->curr_compute_capacity = tmp_capacity;
 }
 
 unsigned long default_scale_smt_power(struct sched_domain *sd, int cpu)
