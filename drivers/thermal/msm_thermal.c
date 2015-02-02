@@ -67,26 +67,25 @@ EXPORT_SYMBOL(cpufreq_max_changed_by_msm_thermal);
 /* MSM cpu freq tables */
 /* See arch/arm/mach-msm/acpuclock-8064.c */
 uint32_t msm_thermal_cpufreq[] = {
-	270000,		// 0
-	384000,		// 1
-	486000,		// 2
-	594000,		// 3
-	702000,		// 4
-	810000,		// 5
-	918000,		// 6
-	1026000,	// 7
-	1134000,	// 8
-	1242000,	// 9
-	1350000,	// 10
-	1458000,	// 11
-	1512000,	// 12
+	384000,		// 0
+	486000,		// 1
+	594000,		// 2
+	702000,		// 3
+	810000,		// 4
+	918000,		// 5
+	1026000,	// 6
+	1134000,	// 7
+	1242000,	// 8
+	1350000,	// 9
+	1458000,	// 10
+	1512000,	// 11
 #ifdef CONFIG_CPU_OVERCLOCK
-	1566000,	// 13
-	1620000,	// 14
-	1674000,	// 15
-	1728000,	// 16
+	1566000,	// 12
+	1620000,	// 13
+	1674000,	// 14
+	1728000,	// 15
 #endif /* CONFIG_CPU_OVERCLOCK */
-	0		// 17
+	0		// 16
 };
 
 // Dynamic thermal control - By jollaman999
@@ -94,9 +93,9 @@ unsigned int mid_freq_index;
 
 // Dynamic thermal control - By jollaman999
 #ifdef CONFIG_CPU_OVERCLOCK
-#define MSM_THERMAL_FREQ_TABLES 17
+#define MSM_THERMAL_FREQ_TABLES 16
 #else
-#define MSM_THERMAL_FREQ_TABLES 13
+#define MSM_THERMAL_FREQ_TABLES 12
 #endif /* CONFIG_CPU_OVERCLOCK */
 
 static void update_stats(void)

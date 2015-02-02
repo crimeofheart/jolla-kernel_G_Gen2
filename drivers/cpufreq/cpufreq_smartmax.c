@@ -64,7 +64,7 @@ EXPORT_SYMBOL(smartmax_screen_off);
  * lowering the frequency towards the ideal frequency is faster than below it.
  */
 
-#define DEFAULT_SUSPEND_IDEAL_FREQ 270000
+#define DEFAULT_SUSPEND_IDEAL_FREQ 384000
 #define DEFAULT_AWAKE_IDEAL_FREQ 594000
 #define DEFAULT_RAMP_UP_STEP 108000
 #define DEFAULT_RAMP_DOWN_STEP 216000
